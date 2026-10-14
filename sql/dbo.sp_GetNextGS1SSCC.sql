@@ -94,9 +94,10 @@ BEGIN
 
         -- Ожидается ровно '(00)' + переданные 17 цифр + одна контрольная цифра.
         -- DATALENGTH, в отличие от LEN, учитывает хвостовые пробелы.
+        -- Бинарная коллация: [0-9] означает только ASCII-цифры при любой коллации базы.
         IF @Result IS NULL
            OR DATALENGTH(@Result) <> DATALENGTH(@AppId + @SSCC17 + N'0')
-           OR @Result NOT LIKE @AppId + @SSCC17 + N'[0-9]'
+           OR @Result COLLATE Latin1_General_BIN2 NOT LIKE @AppId + @SSCC17 + N'[0-9]'
         BEGIN
             SET @Msg = CONCAT(N'sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула некорректное значение для ',
                               @SSCC17, N': ', ISNULL(N'''' + @Result + N'''', N'NULL'));
