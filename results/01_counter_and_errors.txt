@@ -2,6 +2,7 @@ Changed database context to 'SSCC_Test'.
 name type_name bytes
 ---- --------- -----
 @SSCC nvarchar 44
+@AllowWrapAround bit 1
 test SSCC len bytes
 ---- ---- --- -----
 serial 1 (00)546025410000000016 22 44
@@ -14,6 +15,9 @@ serial 3 (00)546025410000000030 22 44
 test SSCC
 ---- ----
 serial max (00)546025419999999998
+test err counter msg
+---- --- ------- ---
+overflow 50005 999999999 sp_GetNextGS1SSCC: диапазон серийных номеров исчерпан (999999999). Сброс на 0 выполняется только при @AllowWrapAround = 1.
 test SSCC counter
 ---- ---- -------
 after reset (00)546025410000000009 0

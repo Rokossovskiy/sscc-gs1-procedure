@@ -8,6 +8,9 @@ fn trailing space 50004 sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула н�
 test err msg
 ---- --- ---
 fn runtime error 8134 Divide by zero error encountered.
+test err msg
+---- --- ---
+fn non-digit 50004 sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула некорректное значение для 54602541000000001: '(00)54602541000000001²'
 FnRestored Counter
 ---------- -------
 (00)546025410000000016 0
