@@ -1,0 +1,31 @@
+Changed database context to 'SSCC_Test'.
+name type_name bytes
+---- --------- -----
+@SSCC nvarchar 44
+test SSCC len bytes
+---- ---- --- -----
+serial 1 (00)546025410000000016 22 44
+test SSCC len bytes
+---- ---- --- -----
+serial 2 (00)546025410000000023 22 44
+test SSCC len bytes
+---- ---- --- -----
+serial 3 (00)546025410000000030 22 44
+test SSCC
+---- ----
+serial max (00)546025419999999998
+test SSCC counter
+---- ---- -------
+after reset (00)546025410000000009 0
+test err msg
+---- --- ---
+invalid value 50002 sp_GetNextGS1SSCC: значение счётчика -5 вне диапазона 0..999999999.
+test err msg
+---- --- ---
+no row 50001 sp_GetNextGS1SSCC: в dbo.tbl_SSCC_Counter нет строки счётчика.
+test err msg
+---- --- ---
+two rows 50003 sp_GetNextGS1SSCC: в dbo.tbl_SSCC_Counter больше одной строки.
+CounterRows LastValue
+----------- ---------
+1 0
