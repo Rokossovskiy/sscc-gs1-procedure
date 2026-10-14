@@ -34,6 +34,16 @@ BEGIN CATCH SELECT N'fn runtime error' AS test, ERROR_NUMBER() AS err, ERROR_MES
 IF @@TRANCOUNT > 0 ROLLBACK;
 GO
 
+-- 9. Функция вернула нецифровой символ вместо контрольной цифры (NCHAR(178), надстрочная двойка)
+DECLARE @s NVARCHAR(22);
+BEGIN TRAN;
+EXEC (N'ALTER FUNCTION dbo.fn_GenerateGS1SSCC (@SSCC17 NVARCHAR(17)) RETURNS NVARCHAR(25)
+AS BEGIN RETURN N''(00)'' + @SSCC17 + NCHAR(178); END');
+BEGIN TRY EXEC dbo.sp_GetNextGS1SSCC @SSCC = @s OUTPUT; END TRY
+BEGIN CATCH SELECT N'fn non-digit' AS test, ERROR_NUMBER() AS err, ERROR_MESSAGE() AS msg; END CATCH;
+IF @@TRANCOUNT > 0 ROLLBACK;
+GO
+
 -- Функция восстановлена, номер не израсходован
 SELECT dbo.fn_GenerateGS1SSCC(N'54602541000000001') AS FnRestored,
        (SELECT LastGS1SSCC FROM dbo.tbl_SSCC_Counter) AS Counter;
