@@ -21,15 +21,27 @@ overflow 50005 999999999 sp_GetNextGS1SSCC: диапазон серийных н
 test SSCC counter
 ---- ---- -------
 after reset (00)546025410000000009 0
+test err
+---- ---
+range check 547
+test err counter msg
+---- --- ------- ---
+invalid value 50002 -5 sp_GetNextGS1SSCC: значение счётчика -5 вне диапазона 0..999999999.
 test err msg
 ---- --- ---
-invalid value 50002 sp_GetNextGS1SSCC: значение счётчика -5 вне диапазона 0..999999999.
-test err msg
----- --- ---
-no row 50001 sp_GetNextGS1SSCC: в dbo.tbl_SSCC_Counter нет строки счётчика.
-test err msg
----- --- ---
-two rows 50003 sp_GetNextGS1SSCC: в dbo.tbl_SSCC_Counter больше одной строки.
-CounterRows LastValue
------------ ---------
-1 0
+no row 50001 sp_GetNextGS1SSCC: в dbo.tbl_SSCC_Counter нет строки с Id = 1.
+test err
+---- ---
+second row same id 2627
+test err
+---- ---
+second row other id 547
+test err xact_state counter msg
+---- --- ---------- ------- ---
+in transaction 50006 1 0 sp_GetNextGS1SSCC: вызов внутри транзакции запрещён. Её откат вернул бы счётчик назад, и выданный SSCC был бы выдан повторно. Вызовите процедуру до BEGIN TRANSACTION.
+test SSCC trancount implicit_on
+---- ---- --------- -----------
+implicit tran (00)546025410000000016 0 2
+test CounterRows LastValue
+---- ----------- ---------
+counter rows 1 0

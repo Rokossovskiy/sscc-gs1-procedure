@@ -1,0 +1,7 @@
+Msg 50101, Level 16, State 1, Server c3a4592e15a2, Line 29
+Миграция остановлена: строк в dbo.tbl_SSCC_Counter: 2, ожидается ровно одна.
+after two rows 2 0
+Msg 50102, Level 16, State 1, Server c3a4592e15a2, Line 37
+Миграция остановлена: значение счётчика -5 вне диапазона 0..999999999.
+after bad value -5 0
+migrated 1 1 0 2

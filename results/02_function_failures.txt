@@ -1,16 +1,19 @@
 Changed database context to 'SSCC_Test'.
-test err msg
----- --- ---
-fn NULL 50004 sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула некорректное значение для 54602541000000001: NULL
-test err msg
----- --- ---
-fn trailing space 50004 sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула некорректное значение для 54602541000000001: '(00)546025410000000016 '
-test err msg
----- --- ---
-fn runtime error 8134 Divide by zero error encountered.
-test err msg
----- --- ---
-fn non-digit 50004 sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула некорректное значение для 54602541000000001: '(00)54602541000000001²'
-FnRestored Counter
----------- -------
-(00)546025410000000016 0
+test err counter msg
+---- --- ------- ---
+fn NULL 50004 1 sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула NULL для 54602541000000001. Серийный номер 1 пропущен.
+test err counter msg
+---- --- ------- ---
+fn trailing space 50004 2 sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула некорректное значение для 54602541000000002: '(00)546025410000000026 '. Серийный номер 2 пропущен.
+test err counter msg
+---- --- ------- ---
+fn runtime error 8134 3 Divide by zero error encountered.
+test err counter msg
+---- --- ------- ---
+fn non-digit 50004 4 sp_GetNextGS1SSCC: fn_GenerateGS1SSCC вернула некорректное значение для 54602541000000004: '(00)54602541000000004²'. Серийный номер 4 пропущен.
+test SSCC
+---- ----
+stub restored (00)546025410000000016
+test counter_before SSCC
+---- -------------- ----
+after failures 4 (00)546025410000000054
